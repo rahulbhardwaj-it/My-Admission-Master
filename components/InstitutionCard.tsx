@@ -1,0 +1,31 @@
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Institution } from '../types';
+
+interface InstitutionCardProps {
+    institution: Institution;
+}
+
+const InstitutionCard: React.FC<InstitutionCardProps> = ({ institution }) => {
+    return (
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+            <img className="h-56 w-full object-cover" src={institution.photoUrl} alt={institution.name} />
+            <div className="p-6">
+                <h3 className="text-xl font-bold text-brand-blue mb-2">{institution.name}</h3>
+                <p className="text-gray-600 text-sm mb-4">{institution.country}, {institution.state}</p>
+                <p className="text-gray-700 text-base mb-4 h-20 overflow-hidden">
+                    {institution.about.substring(0, 100)}...
+                </p>
+                <Link 
+                    to={`/institutions/${institution.id}`}
+                    className="inline-block bg-brand-blue text-white font-bold py-2 px-4 rounded-full hover:bg-blue-800 transition-colors duration-300"
+                >
+                    View Details
+                </Link>
+            </div>
+        </div>
+    );
+};
+
+export default InstitutionCard;
