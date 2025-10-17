@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isMenuOpen]);
+
 
     const navLinkClasses = "text-white hover:text-brand-gold transition duration-300 px-3 py-2 rounded-md text-sm font-medium";
     const activeNavLinkClasses = "text-brand-gold bg-white/10";
 
     const getNavLinkClass = ({ isActive }: { isActive: boolean }) => 
         isActive ? `${navLinkClasses} ${activeNavLinkClasses}` : navLinkClasses;
+        
+    const getMobileNavLinkClass = ({ isActive }: { isActive: boolean }) => {
+        const mobileBase = "block text-white hover:text-brand-gold transition duration-300 px-3 py-3 rounded-md text-base font-medium";
+        const mobileActive = "text-brand-gold bg-white/10";
+        return isActive ? `${mobileBase} ${mobileActive}` : mobileBase;
+    }
+
 
     return (
         <header className="bg-brand-blue shadow-lg sticky top-0 z-50">
@@ -25,6 +44,7 @@ const Header: React.FC = () => {
                             <NavLink to="/" className={getNavLinkClass}>Home</NavLink>
                             <NavLink to="/institutions" className={getNavLinkClass}>Institutions</NavLink>
                             <NavLink to="/courses" className={getNavLinkClass}>Courses</NavLink>
+                            <NavLink to="/blog" className={getNavLinkClass}>Blog</NavLink>
                             <NavLink to="/contact" className={getNavLinkClass}>Contact Us</NavLink>
                         </div>
                     </div>
@@ -34,7 +54,7 @@ const Header: React.FC = () => {
                         </NavLink>
                     </div>
                     <div className="-mr-2 flex md:hidden">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} type="button" className="bg-brand-blue inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} type="button" className="bg-brand-blue inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded={isMenuOpen}>
                             <span className="sr-only">Open main menu</span>
                             {!isMenuOpen ? (
                                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -50,19 +70,22 @@ const Header: React.FC = () => {
                 </div>
             </div>
 
-            {isMenuOpen && (
-                <div className="md:hidden" id="mobile-menu">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <NavLink to="/" className={getNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Home</NavLink>
-                        <NavLink to="/institutions" className={getNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Institutions</NavLink>
-                        <NavLink to="/courses" className={getNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Courses</NavLink>
-                        <NavLink to="/contact" className={getNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Contact Us</NavLink>
-                        <NavLink to="/admin/dashboard" onClick={()=>setIsMenuOpen(false)} className="block text-center mt-4 bg-brand-gold text-brand-blue hover:bg-yellow-300 font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out">
+            {/* Mobile menu, full-screen overlay */}
+            {/* FIX: Increased z-index from 40 to 50 to ensure the mobile menu appears above other content. */}
+            <div className={`md:hidden fixed top-20 left-0 right-0 bottom-0 bg-brand-blue z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} id="mobile-menu">
+                <div className="px-2 pt-2 pb-3 space-y-2 sm:px-3">
+                    <NavLink to="/" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Home</NavLink>
+                    <NavLink to="/institutions" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Institutions</NavLink>
+                    <NavLink to="/courses" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Courses</NavLink>
+                    <NavLink to="/blog" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Blog</NavLink>
+                    <NavLink to="/contact" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Contact Us</NavLink>
+                    <div className="pt-4 border-t border-white/20">
+                        <NavLink to="/admin/dashboard" onClick={()=>setIsMenuOpen(false)} className="block text-center bg-brand-gold text-brand-blue hover:bg-yellow-300 font-bold py-3 px-4 rounded-full transition duration-300 ease-in-out">
                             Admin Login
                         </NavLink>
                     </div>
                 </div>
-            )}
+            </div>
         </header>
     );
 };

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Institution } from '../../types';
@@ -26,6 +27,7 @@ const AdminInstitutionForm: React.FC<AdminInstitutionFormProps> = ({ institution
         placement: '',
         photoUrl: '',
         registrationUrl: '',
+        logoUrl: '',
     });
 
      useEffect(() => {
@@ -107,6 +109,10 @@ const AdminInstitutionForm: React.FC<AdminInstitutionFormProps> = ({ institution
                          <div>
                             <label htmlFor="registrationUrl" className="block text-sm font-medium text-gray-700">Registration URL</label>
                             <input type="url" name="registrationUrl" id="registrationUrl" value={institution.registrationUrl} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-gold focus:border-brand-gold" placeholder="https://example.com/register"/>
+                        </div>
+                        <div>
+                            <label htmlFor="logoUrl" className="block text-sm font-medium text-gray-700">Institute Logo URL</label>
+                            <input type="url" name="logoUrl" id="logoUrl" value={institution.logoUrl} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-gold focus:border-brand-gold" placeholder="https://example.com/logo.png"/>
                         </div>
                     </div>
                 </div>

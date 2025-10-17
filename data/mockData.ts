@@ -1,5 +1,5 @@
 
-import { Institution, Course, CourseLevel, Enquiry, EnquiryStatus } from '../types';
+import { Institution, Course, CourseLevel, Enquiry, EnquiryStatus, Article } from '../types';
 
 export const institutions: Institution[] = [
     {
@@ -16,6 +16,7 @@ export const institutions: Institution[] = [
         placement: '95% placement rate with top tech companies like Google, Apple, and Microsoft. Average package of $120,000.',
         photoUrl: 'https://picsum.photos/seed/gtu/800/600',
         registrationUrl: '#',
+        logoUrl: 'https://i.ibb.co/ZJ9yDq7/logo.png',
     },
     {
         id: 2,
@@ -31,6 +32,7 @@ export const institutions: Institution[] = [
         placement: 'Strong industry connections for internships and projects. Many graduates become successful freelance artists and designers.',
         photoUrl: 'https://picsum.photos/seed/nac/800/600',
         registrationUrl: '#',
+        logoUrl: 'https://i.ibb.co/ZJ9yDq7/logo.png',
     },
     {
         id: 3,
@@ -46,6 +48,7 @@ export const institutions: Institution[] = [
         placement: 'Top placements in finance, consulting, and marketing sectors. Average MBA salary of £90,000.',
         photoUrl: 'https://picsum.photos/seed/hbs/800/600',
         registrationUrl: '#',
+        logoUrl: 'https://i.ibb.co/ZJ9yDq7/logo.png',
     },
     {
         id: 4,
@@ -61,6 +64,7 @@ export const institutions: Institution[] = [
         placement: '100% residency placement rate in top hospitals across North America.',
         photoUrl: 'https://picsum.photos/seed/gmi/800/600',
         registrationUrl: '#',
+        logoUrl: 'https://i.ibb.co/ZJ9yDq7/logo.png',
     },
 ];
 
@@ -170,4 +174,52 @@ export const enquiries: Enquiry[] = [
         dateSubmitted: '2023-10-27',
         status: EnquiryStatus.NEW,
     },
+];
+
+export const articles: Article[] = [
+    {
+        id: 1,
+        title: 'Top 5 Emerging Fields in Technology for 2025',
+        author: 'Dr. Jane Foster',
+        datePublished: '2023-10-28',
+        imageUrl: 'https://picsum.photos/seed/techtrends/800/600',
+        summary: 'Explore the most promising tech fields that are set to dominate the job market in the coming years. From AI to quantum computing, find out where the future is headed.',
+        content: 'The world of technology is ever-evolving, and staying ahead of the curve is crucial for aspiring students. Here are the top five emerging fields to watch:\n\n1. **Artificial Intelligence and Machine Learning:** No surprise here. AI continues to expand its reach across all industries, from healthcare to finance.\n\n2. **Quantum Computing:** While still in its nascent stages, quantum computing promises to revolutionize problem-solving capabilities.\n\n3. **Biotechnology:** The intersection of biology and technology is leading to breakthroughs in medicine, agriculture, and environmental science.\n\n4. **Cybersecurity:** As our world becomes more digital, the need for robust cybersecurity professionals has never been higher.\n\n5. **Sustainable Technology:** With a growing focus on climate change, careers in renewable energy and green tech are on the rise. Pursuing a degree in any of these fields can lead to a rewarding and impactful career.'
+    },
+    {
+        id: 2,
+        title: 'How to Write a Winning Scholarship Essay',
+        author: 'John Doe',
+        datePublished: '2023-10-25',
+        imageUrl: 'https://picsum.photos/seed/essay/800/600',
+        summary: 'Securing a scholarship can be a game-changer for your education. Learn our expert tips for crafting a compelling essay that stands out to admission committees.',
+        content: 'A scholarship essay is your chance to tell your story. Here are some tips:\n\n- **Start with a strong hook:** Grab the reader\'s attention from the first sentence.\n- **Be authentic:** Write in your own voice and share genuine experiences.\n- **Address the prompt directly:** Make sure you understand what the scholarship committee is asking for and tailor your essay accordingly.\n- **Proofread meticulously:** Typos and grammatical errors can leave a negative impression. Read your essay aloud and have someone else review it.'
+    },
+    {
+        id: 3,
+        title: 'The Importance of Internships in Your College Journey',
+        author: 'Emily Carter',
+        datePublished: '2023-10-22',
+        imageUrl: 'https://picsum.photos/seed/internship/800/600',
+        summary: 'Internships are more than just a resume-builder. Discover how practical experience can shape your career path and give you a competitive edge after graduation.',
+        content: 'While classroom learning is fundamental, internships provide invaluable real-world experience. They allow you to apply theoretical knowledge to practical challenges, build a professional network, and explore different career paths within your field. Many companies also use their internship programs as a pipeline for full-time hires, so excelling in your role can lead directly to a job offer upon graduation.'
+    },
+    {
+        id: 4,
+        title: 'Navigating Student Life: A Guide for Freshers',
+        author: 'Admin',
+        datePublished: '2023-10-20',
+        imageUrl: 'https://picsum.photos/seed/studentlife/800/600',
+        summary: 'Starting university is an exciting new chapter. Here are some tips to help you make the most of your first year, from academics to social life.',
+        content: 'Your first year of university is a time of transition and growth. To make it a success, focus on time management, don\'t be afraid to ask for help from professors or advisors, get involved in campus clubs to meet new people, and prioritize your well-being. Remember, it\'s a marathon, not a sprint!'
+    },
+    {
+        id: 5,
+        title: 'Study Abroad: Is It Right for You?',
+        author: 'Dr. Maria Rodriguez',
+        datePublished: '2023-10-18',
+        imageUrl: 'https://picsum.photos/seed/abroad/800/600',
+        summary: 'Studying abroad can be a life-changing experience, offering cultural immersion and a global perspective. We weigh the pros and cons to help you decide if it fits your academic goals.',
+        content: 'Studying abroad offers numerous benefits, including cultural enrichment, language skills, and a global network. However, it also comes with challenges like cost, being away from home, and adapting to a new educational system. Carefully research programs, consider your budget, and talk to students who have studied abroad to make an informed decision.'
+    }
 ];

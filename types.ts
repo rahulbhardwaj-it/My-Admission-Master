@@ -13,6 +13,7 @@ export interface Institution {
     placement: string;
     photoUrl: string;
     registrationUrl: string;
+    logoUrl: string;
 }
 
 export enum CourseLevel {
@@ -49,4 +50,14 @@ export interface Enquiry {
     courseInterest: string;
     dateSubmitted: string;
     status: EnquiryStatus;
+}
+
+export interface Article {
+    id: number;
+    title: string;
+    author: string;
+    datePublished: string; // YYYY-MM-DD
+    imageUrl: string;
+    summary: string;
+    content: string;
 }

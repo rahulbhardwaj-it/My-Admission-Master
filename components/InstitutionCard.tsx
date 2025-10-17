@@ -10,8 +10,13 @@ interface InstitutionCardProps {
 const InstitutionCard: React.FC<InstitutionCardProps> = ({ institution }) => {
     return (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
-            <img className="h-56 w-full object-cover" src={institution.photoUrl} alt={institution.name} />
-            <div className="p-6">
+            <div className="relative">
+                <img className="h-56 w-full object-cover" src={institution.photoUrl} alt={institution.name} />
+                <div className="absolute -bottom-8 right-6">
+                    <img className="h-16 w-16 rounded-full object-contain bg-white p-1 border-4 border-white shadow-lg" src={institution.logoUrl} alt={`${institution.name} Logo`} />
+                </div>
+            </div>
+            <div className="p-6 pt-10">
                 <h3 className="text-xl font-bold text-brand-blue mb-2">{institution.name}</h3>
                 <p className="text-gray-600 text-sm mb-4">{institution.country}, {institution.state}</p>
                 <p className="text-gray-700 text-base mb-4 h-20 overflow-hidden">

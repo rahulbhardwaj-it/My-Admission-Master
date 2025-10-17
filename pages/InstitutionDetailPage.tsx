@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Course, Institution } from '../types';
@@ -33,10 +34,13 @@ const InstitutionDetailPage: React.FC<InstitutionDetailPageProps> = ({ instituti
             {/* Header Section */}
             <div className="relative h-80">
                 <img src={institution.photoUrl} alt={institution.name} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-brand-blue bg-opacity-60 flex items-center justify-center">
-                    <div className="text-center text-white p-4">
-                        <h1 className="text-5xl font-extrabold">{institution.name}</h1>
-                        <p className="text-xl mt-2">{institution.district}, {institution.state}, {institution.country}</p>
+                <div className="absolute inset-0 bg-brand-blue bg-opacity-60 flex items-center justify-center p-4">
+                    <div className="text-center text-white flex flex-col md:flex-row items-center gap-6">
+                        <img src={institution.logoUrl} alt={`${institution.name} Logo`} className="h-24 w-24 rounded-full object-contain bg-white p-2 shadow-lg flex-shrink-0" />
+                        <div>
+                            <h1 className="text-4xl md:text-5xl font-extrabold">{institution.name}</h1>
+                            <p className="text-lg md:text-xl mt-2">{institution.district}, {institution.state}, {institution.country}</p>
+                        </div>
                     </div>
                 </div>
             </div>

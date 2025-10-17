@@ -1,16 +1,19 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import EnquiryForm from '../components/EnquiryForm';
 import InstitutionCard from '../components/InstitutionCard';
-import { Institution, Course, Enquiry } from '../types';
+import ArticleCard from '../components/ArticleCard';
+import { Institution, Course, Enquiry, Article } from '../types';
 
 interface HomePageProps {
     institutions: Institution[];
     courses: Course[];
+    articles: Article[];
     onAddEnquiry: (enquiry: Omit<Enquiry, 'id' | 'dateSubmitted' | 'status'>) => void;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ institutions, courses, onAddEnquiry }) => {
+const HomePage: React.FC<HomePageProps> = ({ institutions, courses, articles, onAddEnquiry }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchType, setSearchType] = useState('institution');
     const [searchResults, setSearchResults] = useState<(Institution | {id: number, name: string, institution: Institution})[]>([]);
@@ -124,6 +127,23 @@ const HomePage: React.FC<HomePageProps> = ({ institutions, courses, onAddEnquiry
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {institutions.slice(0, 3).map(inst => (
                             <InstitutionCard key={inst.id} institution={inst} />
+                        ))}
+                    </div>
+                </div>
+            </section>
+            
+            {/* Latest News Section */}
+            <section className="py-16 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex justify-between items-center mb-12">
+                         <h2 className="text-3xl font-bold text-brand-blue">Latest News</h2>
+                         <Link to="/blog" className="text-brand-gold font-semibold hover:underline">
+                            View All Articles &rarr;
+                         </Link>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {articles.slice(0, 3).map(article => (
+                            <ArticleCard key={article.id} article={article} />
                         ))}
                     </div>
                 </div>

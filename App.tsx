@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
@@ -8,6 +9,8 @@ import InstitutionDetailPage from './pages/InstitutionDetailPage';
 import CoursesPage from './pages/CoursesPage';
 import CourseDetailPage from './pages/CourseDetailPage';
 import ContactPage from './pages/ContactPage';
+import BlogPage from './pages/BlogPage';
+import ArticleDetailPage from './pages/ArticleDetailPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminDashboardHome from './pages/admin/AdminDashboardHome';
@@ -16,8 +19,10 @@ import AdminInstitutionForm from './pages/admin/AdminInstitutionForm';
 import AdminManageCourses from './pages/admin/AdminManageCourses';
 import AdminCourseForm from './pages/admin/AdminCourseForm';
 import AdminViewEnquiries from './pages/admin/AdminViewEnquiries';
-import { institutions as institutionsData, courses as coursesData, enquiries as enquiriesData } from './data/mockData';
-import { Course, Enquiry, EnquiryStatus, Institution } from './types';
+import AdminManageArticles from './pages/admin/AdminManageArticles';
+import AdminArticleForm from './pages/admin/AdminArticleForm';
+import { institutions as institutionsData, courses as coursesData, enquiries as enquiriesData, articles as articlesData } from './data/mockData';
+import { Article, Course, Enquiry, EnquiryStatus, Institution } from './types';
 
 
 const App: React.FC = () => {
@@ -25,6 +30,7 @@ const App: React.FC = () => {
     const [institutions, setInstitutions] = useState<Institution[]>(institutionsData);
     const [courses, setCourses] = useState<Course[]>(coursesData);
     const [enquiries, setEnquiries] = useState<Enquiry[]>(enquiriesData);
+    const [articles, setArticles] = useState<Article[]>(articlesData);
 
     const handleLogin = () => {
         setIsAuthenticated(true);
@@ -77,18 +83,38 @@ const App: React.FC = () => {
         setEnquiries(prev => prev.map(e => e.id === enquiryId ? { ...e, status: newStatus } : e));
     };
 
+    // Article Handlers
+    const handleAddArticle = (newArticle: Omit<Article, 'id'>) => {
+        const articleToAdd: Article = {
+            ...newArticle,
+            id: Date.now(),
+            datePublished: new Date().toISOString().split('T')[0]
+        };
+        setArticles(prev => [articleToAdd, ...prev]);
+    };
+
+    const handleUpdateArticle = (updatedArticle: Article) => {
+        setArticles(prev => prev.map(a => a.id === updatedArticle.id ? updatedArticle : a));
+    };
+
+    const handleDeleteArticle = (articleId: number) => {
+        setArticles(prev => prev.filter(a => a.id !== articleId));
+    };
+
 
     const MainLayout: React.FC = () => (
         <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">
                 <Routes>
-                    <Route path="/" element={<HomePage institutions={institutions} courses={courses} onAddEnquiry={handleAddEnquiry} />} />
+                    <Route path="/" element={<HomePage institutions={institutions} courses={courses} articles={articles} onAddEnquiry={handleAddEnquiry} />} />
                     <Route path="/institutions" element={<InstitutionsPage institutions={institutions} />} />
                     <Route path="/institutions/:id" element={<InstitutionDetailPage institutions={institutions} courses={courses} />} />
                     <Route path="/courses" element={<CoursesPage institutions={institutions} courses={courses} />} />
                     <Route path="/courses/:courseId" element={<CourseDetailPage courses={courses} institutions={institutions} />} />
                     <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/blog" element={<BlogPage articles={articles} />} />
+                    <Route path="/blog/:articleId" element={<ArticleDetailPage articles={articles} />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </main>
@@ -114,7 +140,7 @@ const App: React.FC = () => {
                         </ProtectedRoute>
                     }
                 >
-                    <Route index element={<AdminDashboardHome />} />
+                    <Route index element={<AdminDashboardHome institutions={institutions} courses={courses} enquiries={enquiries} articles={articles} />} />
                     <Route path="institutions" element={<AdminManageInstitutions institutions={institutions} onDeleteInstitution={handleDeleteInstitution} />} />
                     <Route path="institutions/add" element={<AdminInstitutionForm onAddInstitution={handleAddInstitution} />} />
                     <Route path="institutions/edit/:institutionId" element={<AdminInstitutionForm institutions={institutions} onUpdateInstitution={handleUpdateInstitution} />} />
@@ -122,6 +148,9 @@ const App: React.FC = () => {
                     <Route path="courses/add" element={<AdminCourseForm institutions={institutions} onAddCourse={handleAddCourse} />} />
                     <Route path="courses/edit/:courseId" element={<AdminCourseForm institutions={institutions} courses={courses} onUpdateCourse={handleUpdateCourse} />} />
                     <Route path="enquiries" element={<AdminViewEnquiries enquiries={enquiries} onUpdateStatus={handleUpdateEnquiryStatus} />} />
+                    <Route path="articles" element={<AdminManageArticles articles={articles} onDeleteArticle={handleDeleteArticle} />} />
+                    <Route path="articles/add" element={<AdminArticleForm onAddArticle={handleAddArticle} />} />
+                    <Route path="articles/edit/:articleId" element={<AdminArticleForm articles={articles} onUpdateArticle={handleUpdateArticle} />} />
                 </Route>
 
                 {/* Redirect base /admin to dashboard */}
