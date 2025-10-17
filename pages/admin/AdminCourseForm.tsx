@@ -1,20 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Course, CourseLevel, Institution } from '../../types';
+import { CourseLevel } from '../../types';
 
-interface AdminCourseFormProps {
-    institutions: Institution[];
-    courses?: Course[];
-    onAddCourse?: (course: Omit<Course, 'id'>) => void;
-    onUpdateCourse?: (course: Course) => void;
-}
-
-const AdminCourseForm: React.FC<AdminCourseFormProps> = ({ institutions, courses, onAddCourse, onUpdateCourse }) => {
+const AdminCourseForm = ({ institutions, courses, onAddCourse, onUpdateCourse }) => {
     const navigate = useNavigate();
-    const { courseId } = useParams<{ courseId?: string }>();
+    const { courseId } = useParams();
     const isEditMode = Boolean(courseId);
 
-    const [course, setCourse] = useState<Omit<Course, 'id'> | Course>({
+    const [course, setCourse] = useState({
         name: '',
         institutionId: institutions[0]?.id || 0,
         level: CourseLevel.UG,
@@ -27,23 +21,23 @@ const AdminCourseForm: React.FC<AdminCourseFormProps> = ({ institutions, courses
 
     useEffect(() => {
         if (isEditMode && courses) {
-            const courseToEdit = courses.find(c => c.id === parseInt(courseId!));
+            const courseToEdit = courses.find(c => c.id === parseInt(courseId));
             if (courseToEdit) {
                 setCourse(courseToEdit);
             }
         }
     }, [isEditMode, courseId, courses]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         const isNumeric = ['institutionId', 'annualFees', 'totalSeats'].includes(name);
         setCourse(prev => ({ ...prev, [name]: isNumeric ? parseInt(value) || 0 : value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (isEditMode) {
-            onUpdateCourse?.(course as Course);
+            onUpdateCourse?.(course);
             alert('Course updated successfully!');
         } else {
             onAddCourse?.(course);

@@ -1,13 +1,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Article } from '../types';
 
-interface ArticleCardProps {
-    article: Article;
-}
-
-const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
+const ArticleCard = ({ article }) => {
     return (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col transform hover:-translate-y-2 transition-transform duration-300">
             <Link to={`/blog/${article.id}`}>

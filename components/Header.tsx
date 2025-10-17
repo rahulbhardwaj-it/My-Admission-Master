@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Header: React.FC = () => {
+const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -19,10 +20,10 @@ const Header: React.FC = () => {
     const navLinkClasses = "text-white hover:text-brand-gold transition duration-300 px-3 py-2 rounded-md text-sm font-medium";
     const activeNavLinkClasses = "text-brand-gold bg-white/10";
 
-    const getNavLinkClass = ({ isActive }: { isActive: boolean }) => 
+    const getNavLinkClass = ({ isActive }) => 
         isActive ? `${navLinkClasses} ${activeNavLinkClasses}` : navLinkClasses;
         
-    const getMobileNavLinkClass = ({ isActive }: { isActive: boolean }) => {
+    const getMobileNavLinkClass = ({ isActive }) => {
         const mobileBase = "block text-white hover:text-brand-gold transition duration-300 px-3 py-3 rounded-md text-base font-medium";
         const mobileActive = "text-brand-gold bg-white/10";
         return isActive ? `${mobileBase} ${mobileActive}` : mobileBase;

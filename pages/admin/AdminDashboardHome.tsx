@@ -1,16 +1,9 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Institution, Course, Enquiry, Article, EnquiryStatus } from '../../types';
+import { EnquiryStatus } from '../../types';
 
-interface AdminDashboardHomeProps {
-    institutions: Institution[];
-    courses: Course[];
-    enquiries: Enquiry[];
-    articles: Article[];
-}
-
-// FIX: Changed JSX.Element to React.ReactNode to resolve "Cannot find namespace 'JSX'" error.
-const StatCard: React.FC<{ title: string; value: number | string; icon: React.ReactNode; link: string; }> = ({ title, value, icon, link }) => (
+const StatCard = ({ title, value, icon, link }) => (
     <Link to={link} className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
         <div className="p-3 rounded-full bg-brand-blue text-white">
             {icon}
@@ -22,7 +15,7 @@ const StatCard: React.FC<{ title: string; value: number | string; icon: React.Re
     </Link>
 );
 
-const BarChart: React.FC<{ title: string, data: { label: string, value: number }[] }> = ({ title, data }) => {
+const BarChart = ({ title, data }) => {
     const maxValue = Math.max(...data.map(d => d.value), 1);
     return (
         <div className="bg-white p-6 rounded-lg shadow-md">
@@ -46,7 +39,7 @@ const BarChart: React.FC<{ title: string, data: { label: string, value: number }
     );
 }
 
-const AdminDashboardHome: React.FC<AdminDashboardHomeProps> = ({ institutions, courses, enquiries, articles }) => {
+const AdminDashboardHome = ({ institutions, courses, enquiries, articles }) => {
     const totalInstitutions = institutions.length;
     const totalCourses = courses.length;
     const newEnquiriesCount = enquiries.filter(e => e.status === EnquiryStatus.NEW).length;

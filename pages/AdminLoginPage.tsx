@@ -1,17 +1,14 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface AdminLoginPageProps {
-    onLogin: () => void;
-}
-
-const AdminLoginPage: React.FC<AdminLoginPageProps> = ({ onLogin }) => {
+const AdminLoginPage = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
 

@@ -1,16 +1,11 @@
+
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Course, CourseLevel, Institution } from '../../types';
+import { CourseLevel } from '../../types';
 
 const ITEMS_PER_PAGE = 5;
 
-interface AdminManageCoursesProps {
-    courses: Course[];
-    institutions: Institution[];
-    onDeleteCourse: (courseId: number) => void;
-}
-
-const AdminManageCourses: React.FC<AdminManageCoursesProps> = ({ courses, institutions, onDeleteCourse }) => {
+const AdminManageCourses = ({ courses, institutions, onDeleteCourse }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState({ level: '', institutionId: '' });
     const [currentPage, setCurrentPage] = useState(1);
@@ -39,18 +34,18 @@ const AdminManageCourses: React.FC<AdminManageCoursesProps> = ({ courses, instit
         return filteredCourses.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     }, [filteredCourses, currentPage]);
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilters(prev => ({...prev, [name]: value}));
         setCurrentPage(1);
     };
     
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
         setCurrentPage(1);
     }
 
-    const handleDeleteClick = (courseId: number) => {
+    const handleDeleteClick = (courseId) => {
         if (window.confirm('Are you sure you want to delete this course? This action cannot be undone.')) {
             onDeleteCourse(courseId);
         }

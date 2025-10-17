@@ -4,21 +4,13 @@ import { Link } from 'react-router-dom';
 import EnquiryForm from '../components/EnquiryForm';
 import InstitutionCard from '../components/InstitutionCard';
 import ArticleCard from '../components/ArticleCard';
-import { Institution, Course, Enquiry, Article } from '../types';
 
-interface HomePageProps {
-    institutions: Institution[];
-    courses: Course[];
-    articles: Article[];
-    onAddEnquiry: (enquiry: Omit<Enquiry, 'id' | 'dateSubmitted' | 'status'>) => void;
-}
-
-const HomePage: React.FC<HomePageProps> = ({ institutions, courses, articles, onAddEnquiry }) => {
+const HomePage = ({ institutions, courses, articles, onAddEnquiry }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchType, setSearchType] = useState('institution');
-    const [searchResults, setSearchResults] = useState<(Institution | {id: number, name: string, institution: Institution})[]>([]);
+    const [searchResults, setSearchResults] = useState([]);
 
-    const handleSearch = (e: React.FormEvent) => {
+    const handleSearch = (e) => {
         e.preventDefault();
         if (!searchQuery.trim()) {
             setSearchResults([]);
@@ -35,9 +27,9 @@ const HomePage: React.FC<HomePageProps> = ({ institutions, courses, articles, on
               .filter(course => course.name.toLowerCase().includes(lowerCaseQuery))
               .map(course => ({
                   ...course,
-                  institution: institutions.find(inst => inst.id === course.institutionId)!
+                  institution: institutions.find(inst => inst.id === course.institutionId)
               }));
-            setSearchResults(results);
+            setSearchResults(results.filter(c => c.institution));
         } else {
              const results = institutions.filter(inst => 
                 inst.country.toLowerCase().includes(lowerCaseQuery) ||

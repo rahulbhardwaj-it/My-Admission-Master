@@ -1,13 +1,9 @@
 
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Course, CourseLevel, Institution } from '../types';
+import { CourseLevel } from '../types';
 
-interface CourseWithInstitution extends Course {
-    institution: Institution;
-}
-
-const CourseCard: React.FC<{ course: CourseWithInstitution }> = ({ course }) => (
+const CourseCard = ({ course }) => (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
         <div className="p-6 flex-grow">
             <p className="text-sm text-brand-gold font-semibold">{course.level}</p>
@@ -29,12 +25,7 @@ const CourseCard: React.FC<{ course: CourseWithInstitution }> = ({ course }) => 
     </div>
 );
 
-interface CoursesPageProps {
-    courses: Course[];
-    institutions: Institution[];
-}
-
-const CoursesPage: React.FC<CoursesPageProps> = ({ courses, institutions }) => {
+const CoursesPage = ({ courses, institutions }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState({
         level: '',
@@ -44,11 +35,11 @@ const CoursesPage: React.FC<CoursesPageProps> = ({ courses, institutions }) => {
     const coursesWithInstitutions = useMemo(() => {
         return courses.map(course => ({
             ...course,
-            institution: institutions.find(inst => inst.id === course.institutionId)!
+            institution: institutions.find(inst => inst.id === course.institutionId)
         })).filter(c => c.institution); // Ensure institution exists
     }, [courses, institutions]);
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilters(prev => ({ ...prev, [name]: value }));
     };

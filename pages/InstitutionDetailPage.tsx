@@ -1,22 +1,16 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Course, Institution } from '../types';
 
-const InfoPill: React.FC<{ label: string; value: string | number }> = ({ label, value }) => (
+const InfoPill = ({ label, value }) => (
     <div className="bg-blue-100 text-brand-blue p-4 rounded-lg">
         <p className="font-semibold">{label}</p>
         <p>{value}</p>
     </div>
 );
 
-interface InstitutionDetailPageProps {
-    institutions: Institution[];
-    courses: Course[];
-}
-
-const InstitutionDetailPage: React.FC<InstitutionDetailPageProps> = ({ institutions, courses }) => {
-    const { id } = useParams<{ id: string }>();
+const InstitutionDetailPage = ({ institutions, courses }) => {
+    const { id } = useParams();
     const institution = institutions.find(inst => inst.id === parseInt(id || ''));
     const institutionCourses = courses.filter(course => course.institutionId === institution?.id);
 

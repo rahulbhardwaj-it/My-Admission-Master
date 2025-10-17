@@ -1,12 +1,7 @@
+
 import React, { useState } from 'react';
-import { Course, Enquiry } from '../types';
 
-interface EnquiryFormProps {
-    courses: Course[];
-    onAddEnquiry: (enquiry: Omit<Enquiry, 'id' | 'dateSubmitted' | 'status'>) => void;
-}
-
-const EnquiryForm: React.FC<EnquiryFormProps> = ({ courses, onAddEnquiry }) => {
+const EnquiryForm = ({ courses, onAddEnquiry }) => {
     const [submitted, setSubmitted] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -15,12 +10,12 @@ const EnquiryForm: React.FC<EnquiryFormProps> = ({ courses, onAddEnquiry }) => {
         courseInterest: '',
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({...prev, [name]: value}));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         onAddEnquiry({
             name: formData.name,

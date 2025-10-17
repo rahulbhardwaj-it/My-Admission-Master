@@ -1,14 +1,10 @@
+
 import React, { useState, useMemo } from 'react';
-import { Enquiry, EnquiryStatus } from '../../types';
+import { EnquiryStatus } from '../../types';
 
 const ITEMS_PER_PAGE = 10;
 
-interface AdminViewEnquiriesProps {
-    enquiries: Enquiry[];
-    onUpdateStatus: (enquiryId: number, newStatus: EnquiryStatus) => void;
-}
-
-const getStatusColor = (status: EnquiryStatus) => {
+const getStatusColor = (status) => {
     switch (status) {
         case EnquiryStatus.NEW: return 'bg-blue-100 text-blue-800';
         case EnquiryStatus.READ: return 'bg-yellow-100 text-yellow-800';
@@ -17,8 +13,8 @@ const getStatusColor = (status: EnquiryStatus) => {
     }
 };
 
-const AdminViewEnquiries: React.FC<AdminViewEnquiriesProps> = ({ enquiries, onUpdateStatus }) => {
-    const [filterStatus, setFilterStatus] = useState<EnquiryStatus | 'All'>('All');
+const AdminViewEnquiries = ({ enquiries, onUpdateStatus }) => {
+    const [filterStatus, setFilterStatus] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
 
     const filteredEnquiries = useMemo(() => {
@@ -35,8 +31,8 @@ const AdminViewEnquiries: React.FC<AdminViewEnquiriesProps> = ({ enquiries, onUp
         return filteredEnquiries.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     }, [filteredEnquiries, currentPage]);
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setFilterStatus(e.target.value as EnquiryStatus | 'All');
+    const handleFilterChange = (e) => {
+        setFilterStatus(e.target.value);
         setCurrentPage(1);
     };
 

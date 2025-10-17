@@ -1,15 +1,10 @@
+
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Institution } from '../../types';
 
 const ITEMS_PER_PAGE = 5;
 
-interface AdminManageInstitutionsProps {
-    institutions: Institution[];
-    onDeleteInstitution: (institutionId: number) => void;
-}
-
-const AdminManageInstitutions: React.FC<AdminManageInstitutionsProps> = ({ institutions, onDeleteInstitution }) => {
+const AdminManageInstitutions = ({ institutions, onDeleteInstitution }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterType, setFilterType] = useState('name');
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +15,7 @@ const AdminManageInstitutions: React.FC<AdminManageInstitutionsProps> = ({ insti
         }
         const lowercasedFilter = searchTerm.toLowerCase();
         return institutions.filter(inst => {
-            const value = inst[filterType as keyof typeof inst];
+            const value = inst[filterType];
             if (typeof value === 'string') {
                 return value.toLowerCase().includes(lowercasedFilter);
             }
@@ -35,23 +30,23 @@ const AdminManageInstitutions: React.FC<AdminManageInstitutionsProps> = ({ insti
         return filteredInstitutions.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     }, [filteredInstitutions, currentPage]);
     
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
         setCurrentPage(1); // Reset to first page on new search
     };
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleFilterChange = (e) => {
         setFilterType(e.target.value);
         setCurrentPage(1); // Reset to first page on filter change
     };
 
-    const handleDeleteClick = (institutionId: number) => {
+    const handleDeleteClick = (institutionId) => {
         if(window.confirm('Are you sure you want to delete this institution? This will also delete all associated courses.')) {
             onDeleteInstitution(institutionId);
         }
     };
     
-    const goToPage = (page: number) => {
+    const goToPage = (page) => {
         setCurrentPage(page);
     };
 

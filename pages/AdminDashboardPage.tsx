@@ -2,11 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 
-interface AdminDashboardPageProps {
-    onLogout: () => void;
-}
-
-const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onLogout }) => {
+const AdminDashboardPage = ({ onLogout }) => {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -18,7 +14,7 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ onLogout }) => 
     const navLinkClasses = "flex items-center px-4 py-3 text-gray-300 hover:bg-white/10 hover:text-white transition-colors duration-200 rounded-lg";
     const activeNavLinkClasses = "bg-white/10 text-white font-semibold";
     
-    const getNavLinkClass = ({ isActive }: { isActive: boolean }) => 
+    const getNavLinkClass = ({ isActive }) => 
         isActive ? `${navLinkClasses} ${activeNavLinkClasses}` : navLinkClasses;
 
     return (

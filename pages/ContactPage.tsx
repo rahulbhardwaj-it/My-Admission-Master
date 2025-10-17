@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 
-const ContactPage: React.FC = () => {
+const ContactPage = () => {
     const [submitted, setSubmitted] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitted(true);
     };

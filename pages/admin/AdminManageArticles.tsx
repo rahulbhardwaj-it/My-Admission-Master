@@ -1,16 +1,10 @@
 
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Article } from '../../types';
 
 const ITEMS_PER_PAGE = 5;
 
-interface AdminManageArticlesProps {
-    articles: Article[];
-    onDeleteArticle: (articleId: number) => void;
-}
-
-const AdminManageArticles: React.FC<AdminManageArticlesProps> = ({ articles, onDeleteArticle }) => {
+const AdminManageArticles = ({ articles, onDeleteArticle }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -32,18 +26,18 @@ const AdminManageArticles: React.FC<AdminManageArticlesProps> = ({ articles, onD
         return filteredArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     }, [filteredArticles, currentPage]);
     
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
         setCurrentPage(1);
     };
 
-    const handleDeleteClick = (articleId: number) => {
+    const handleDeleteClick = (articleId) => {
         if(window.confirm('Are you sure you want to delete this article?')) {
             onDeleteArticle(articleId);
         }
     };
     
-    const goToPage = (page: number) => {
+    const goToPage = (page) => {
         setCurrentPage(page);
     };
 

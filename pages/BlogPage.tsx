@@ -1,13 +1,8 @@
 
 import React from 'react';
-import { Article } from '../types';
 import ArticleCard from '../components/ArticleCard';
 
-interface BlogPageProps {
-    articles: Article[];
-}
-
-const BlogPage: React.FC<BlogPageProps> = ({ articles }) => {
+const BlogPage = ({ articles }) => {
     return (
         <div className="bg-gray-50 min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

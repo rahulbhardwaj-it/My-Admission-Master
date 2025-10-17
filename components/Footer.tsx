@@ -2,7 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const SocialIcon: React.FC<{ href: string, path: string }> = ({ href, path }) => (
+const SocialIcon = ({ href, path }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-gold transition-colors duration-300">
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d={path} />
@@ -10,7 +10,7 @@ const SocialIcon: React.FC<{ href: string, path: string }> = ({ href, path }) =>
     </a>
 );
 
-const Footer: React.FC = () => {
+const Footer = () => {
     return (
         <footer className="bg-brand-blue text-white">
             <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">

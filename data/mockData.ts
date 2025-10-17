@@ -1,7 +1,7 @@
 
-import { Institution, Course, CourseLevel, Enquiry, EnquiryStatus, Article } from '../types';
+import { CourseLevel, EnquiryStatus } from '../types';
 
-export const institutions: Institution[] = [
+export const institutions = [
     {
         id: 1,
         name: 'Global Tech University',
@@ -68,7 +68,7 @@ export const institutions: Institution[] = [
     },
 ];
 
-export const courses: Course[] = [
+export const courses = [
     {
         id: 101,
         name: 'B.Tech in Computer Science',
@@ -137,7 +137,7 @@ export const courses: Course[] = [
     },
 ];
 
-export const enquiries: Enquiry[] = [
+export const enquiries = [
     {
         id: 1,
         name: 'Alice Johnson',
@@ -176,7 +176,7 @@ export const enquiries: Enquiry[] = [
     },
 ];
 
-export const articles: Article[] = [
+export const articles = [
     {
         id: 1,
         title: 'Top 5 Emerging Fields in Technology for 2025',

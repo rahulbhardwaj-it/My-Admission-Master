@@ -22,15 +22,15 @@ import AdminViewEnquiries from './pages/admin/AdminViewEnquiries';
 import AdminManageArticles from './pages/admin/AdminManageArticles';
 import AdminArticleForm from './pages/admin/AdminArticleForm';
 import { institutions as institutionsData, courses as coursesData, enquiries as enquiriesData, articles as articlesData } from './data/mockData';
-import { Article, Course, Enquiry, EnquiryStatus, Institution } from './types';
+import { EnquiryStatus } from './types';
 
 
-const App: React.FC = () => {
+const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [institutions, setInstitutions] = useState<Institution[]>(institutionsData);
-    const [courses, setCourses] = useState<Course[]>(coursesData);
-    const [enquiries, setEnquiries] = useState<Enquiry[]>(enquiriesData);
-    const [articles, setArticles] = useState<Article[]>(articlesData);
+    const [institutions, setInstitutions] = useState(institutionsData);
+    const [courses, setCourses] = useState(coursesData);
+    const [enquiries, setEnquiries] = useState(enquiriesData);
+    const [articles, setArticles] = useState(articlesData);
 
     const handleLogin = () => {
         setIsAuthenticated(true);
@@ -41,36 +41,36 @@ const App: React.FC = () => {
     };
 
     // Institution Handlers
-    const handleAddInstitution = (newInstitution: Omit<Institution, 'id'>) => {
+    const handleAddInstitution = (newInstitution) => {
         setInstitutions(prev => [...prev, { ...newInstitution, id: Date.now() }]);
     };
     
-    const handleUpdateInstitution = (updatedInstitution: Institution) => {
+    const handleUpdateInstitution = (updatedInstitution) => {
         setInstitutions(prev => prev.map(i => i.id === updatedInstitution.id ? updatedInstitution : i));
     };
 
-    const handleDeleteInstitution = (institutionId: number) => {
+    const handleDeleteInstitution = (institutionId) => {
         setInstitutions(prev => prev.filter(i => i.id !== institutionId));
         // Also delete courses associated with this institution
         setCourses(prev => prev.filter(c => c.institutionId !== institutionId));
     };
 
     // Course Handlers
-    const handleAddCourse = (newCourse: Omit<Course, 'id'>) => {
+    const handleAddCourse = (newCourse) => {
         setCourses(prev => [...prev, { ...newCourse, id: Date.now() }]);
     };
 
-    const handleUpdateCourse = (updatedCourse: Course) => {
+    const handleUpdateCourse = (updatedCourse) => {
         setCourses(prev => prev.map(c => c.id === updatedCourse.id ? updatedCourse : c));
     };
     
-    const handleDeleteCourse = (courseId: number) => {
+    const handleDeleteCourse = (courseId) => {
         setCourses(prev => prev.filter(c => c.id !== courseId));
     };
 
     // Enquiry Handlers
-    const handleAddEnquiry = (newEnquiry: Omit<Enquiry, 'id' | 'dateSubmitted' | 'status'>) => {
-        const enquiryToAdd: Enquiry = {
+    const handleAddEnquiry = (newEnquiry) => {
+        const enquiryToAdd = {
             ...newEnquiry,
             id: Date.now(),
             dateSubmitted: new Date().toISOString().split('T')[0],
@@ -79,13 +79,13 @@ const App: React.FC = () => {
         setEnquiries(prev => [enquiryToAdd, ...prev]);
     };
 
-    const handleUpdateEnquiryStatus = (enquiryId: number, newStatus: EnquiryStatus) => {
+    const handleUpdateEnquiryStatus = (enquiryId, newStatus) => {
         setEnquiries(prev => prev.map(e => e.id === enquiryId ? { ...e, status: newStatus } : e));
     };
 
     // Article Handlers
-    const handleAddArticle = (newArticle: Omit<Article, 'id'>) => {
-        const articleToAdd: Article = {
+    const handleAddArticle = (newArticle) => {
+        const articleToAdd = {
             ...newArticle,
             id: Date.now(),
             datePublished: new Date().toISOString().split('T')[0]
@@ -93,16 +93,16 @@ const App: React.FC = () => {
         setArticles(prev => [articleToAdd, ...prev]);
     };
 
-    const handleUpdateArticle = (updatedArticle: Article) => {
+    const handleUpdateArticle = (updatedArticle) => {
         setArticles(prev => prev.map(a => a.id === updatedArticle.id ? updatedArticle : a));
     };
 
-    const handleDeleteArticle = (articleId: number) => {
+    const handleDeleteArticle = (articleId) => {
         setArticles(prev => prev.filter(a => a.id !== articleId));
     };
 
 
-    const MainLayout: React.FC = () => (
+    const MainLayout = () => (
         <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">
@@ -122,7 +122,7 @@ const App: React.FC = () => {
         </div>
     );
     
-    const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({ children }) => {
+    const ProtectedRoute = ({ children }) => {
         return isAuthenticated ? children : <Navigate to="/admin/login" replace />;
     };
 
@@ -142,15 +142,18 @@ const App: React.FC = () => {
                 >
                     <Route index element={<AdminDashboardHome institutions={institutions} courses={courses} enquiries={enquiries} articles={articles} />} />
                     <Route path="institutions" element={<AdminManageInstitutions institutions={institutions} onDeleteInstitution={handleDeleteInstitution} />} />
-                    <Route path="institutions/add" element={<AdminInstitutionForm onAddInstitution={handleAddInstitution} />} />
-                    <Route path="institutions/edit/:institutionId" element={<AdminInstitutionForm institutions={institutions} onUpdateInstitution={handleUpdateInstitution} />} />
+                    {/* FIX: Pass all required props to AdminInstitutionForm for both add and edit routes to resolve TypeScript errors. */}
+                    <Route path="institutions/add" element={<AdminInstitutionForm institutions={institutions} onAddInstitution={handleAddInstitution} onUpdateInstitution={handleUpdateInstitution} />} />
+                    <Route path="institutions/edit/:institutionId" element={<AdminInstitutionForm institutions={institutions} onAddInstitution={handleAddInstitution} onUpdateInstitution={handleUpdateInstitution} />} />
                     <Route path="courses" element={<AdminManageCourses courses={courses} institutions={institutions} onDeleteCourse={handleDeleteCourse} />} />
-                    <Route path="courses/add" element={<AdminCourseForm institutions={institutions} onAddCourse={handleAddCourse} />} />
-                    <Route path="courses/edit/:courseId" element={<AdminCourseForm institutions={institutions} courses={courses} onUpdateCourse={handleUpdateCourse} />} />
+                    {/* FIX: Pass all required props to AdminCourseForm for both add and edit routes to resolve TypeScript errors. */}
+                    <Route path="courses/add" element={<AdminCourseForm institutions={institutions} courses={courses} onAddCourse={handleAddCourse} onUpdateCourse={handleUpdateCourse} />} />
+                    <Route path="courses/edit/:courseId" element={<AdminCourseForm institutions={institutions} courses={courses} onAddCourse={handleAddCourse} onUpdateCourse={handleUpdateCourse} />} />
                     <Route path="enquiries" element={<AdminViewEnquiries enquiries={enquiries} onUpdateStatus={handleUpdateEnquiryStatus} />} />
                     <Route path="articles" element={<AdminManageArticles articles={articles} onDeleteArticle={handleDeleteArticle} />} />
-                    <Route path="articles/add" element={<AdminArticleForm onAddArticle={handleAddArticle} />} />
-                    <Route path="articles/edit/:articleId" element={<AdminArticleForm articles={articles} onUpdateArticle={handleUpdateArticle} />} />
+                    {/* FIX: Pass all required props to AdminArticleForm for both add and edit routes to resolve TypeScript errors. */}
+                    <Route path="articles/add" element={<AdminArticleForm articles={articles} onAddArticle={handleAddArticle} onUpdateArticle={handleUpdateArticle} />} />
+                    <Route path="articles/edit/:articleId" element={<AdminArticleForm articles={articles} onAddArticle={handleAddArticle} onUpdateArticle={handleUpdateArticle} />} />
                 </Route>
 
                 {/* Redirect base /admin to dashboard */}

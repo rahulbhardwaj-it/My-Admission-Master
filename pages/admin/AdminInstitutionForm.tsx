@@ -1,20 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Institution } from '../../types';
 
-interface AdminInstitutionFormProps {
-    institutions?: Institution[];
-    onAddInstitution?: (institution: Omit<Institution, 'id'>) => void;
-    onUpdateInstitution?: (institution: Institution) => void;
-}
-
-const AdminInstitutionForm: React.FC<AdminInstitutionFormProps> = ({ institutions, onAddInstitution, onUpdateInstitution }) => {
+const AdminInstitutionForm = ({ institutions, onAddInstitution, onUpdateInstitution }) => {
     const navigate = useNavigate();
-    const { institutionId } = useParams<{ institutionId?: string }>();
+    const { institutionId } = useParams();
     const isEditMode = Boolean(institutionId);
 
-    const [institution, setInstitution] = useState<Omit<Institution, 'id'> | Institution>({
+    const [institution, setInstitution] = useState({
         name: '',
         type: 'University',
         establishmentYear: new Date().getFullYear(),
@@ -32,25 +25,25 @@ const AdminInstitutionForm: React.FC<AdminInstitutionFormProps> = ({ institution
 
      useEffect(() => {
         if (isEditMode && institutions) {
-            const instToEdit = institutions.find(i => i.id === parseInt(institutionId!));
+            const instToEdit = institutions.find(i => i.id === parseInt(institutionId));
             if (instToEdit) {
                 setInstitution(instToEdit);
             }
         }
     }, [isEditMode, institutionId, institutions]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setInstitution(prev => ({ ...prev, [name]: name === 'establishmentYear' ? parseInt(value) || new Date().getFullYear() : value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (isEditMode) {
-            onUpdateInstitution?.(institution as Institution);
+            onUpdateInstitution?.(institution);
             alert('Institution updated successfully!');
         } else {
-            onAddInstitution?.(institution as Omit<Institution, 'id'>);
+            onAddInstitution?.(institution);
             alert('Institution added successfully!');
         }
         navigate('/admin/dashboard/institutions');

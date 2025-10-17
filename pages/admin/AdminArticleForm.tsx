@@ -1,20 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Article } from '../../types';
 
-interface AdminArticleFormProps {
-    articles?: Article[];
-    onAddArticle?: (article: Omit<Article, 'id' | 'datePublished'>) => void;
-    onUpdateArticle?: (article: Article) => void;
-}
-
-const AdminArticleForm: React.FC<AdminArticleFormProps> = ({ articles, onAddArticle, onUpdateArticle }) => {
+const AdminArticleForm = ({ articles, onAddArticle, onUpdateArticle }) => {
     const navigate = useNavigate();
-    const { articleId } = useParams<{ articleId?: string }>();
+    const { articleId } = useParams();
     const isEditMode = Boolean(articleId);
 
-    const [article, setArticle] = useState<Omit<Article, 'id'> | Article>({
+    const [article, setArticle] = useState({
         title: '',
         author: '',
         imageUrl: '',
@@ -25,25 +18,25 @@ const AdminArticleForm: React.FC<AdminArticleFormProps> = ({ articles, onAddArti
 
      useEffect(() => {
         if (isEditMode && articles) {
-            const articleToEdit = articles.find(i => i.id === parseInt(articleId!));
+            const articleToEdit = articles.find(i => i.id === parseInt(articleId));
             if (articleToEdit) {
                 setArticle(articleToEdit);
             }
         }
     }, [isEditMode, articleId, articles]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setArticle(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (isEditMode) {
-            onUpdateArticle?.(article as Article);
+            onUpdateArticle?.(article);
             alert('Article updated successfully!');
         } else {
-            onAddArticle?.(article as Omit<Article, 'id'>);
+            onAddArticle?.(article);
             alert('Article added successfully!');
         }
         navigate('/admin/dashboard/articles');

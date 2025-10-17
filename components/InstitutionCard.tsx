@@ -1,13 +1,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Institution } from '../types';
 
-interface InstitutionCardProps {
-    institution: Institution;
-}
-
-const InstitutionCard: React.FC<InstitutionCardProps> = ({ institution }) => {
+const InstitutionCard = ({ institution }) => {
     return (
         <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
             <div className="relative">

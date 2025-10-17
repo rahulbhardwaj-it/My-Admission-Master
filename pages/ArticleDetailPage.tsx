@@ -1,14 +1,9 @@
 
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Article } from '../types';
 
-interface ArticleDetailPageProps {
-    articles: Article[];
-}
-
-const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articles }) => {
-    const { articleId } = useParams<{ articleId: string }>();
+const ArticleDetailPage = ({ articles }) => {
+    const { articleId } = useParams();
     const article = articles.find(a => a.id === parseInt(articleId || ''));
 
     if (!article) {

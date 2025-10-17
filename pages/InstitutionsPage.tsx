@@ -1,12 +1,8 @@
+
 import React, { useState, useMemo } from 'react';
 import InstitutionCard from '../components/InstitutionCard';
-import { Institution } from '../types';
 
-interface InstitutionsPageProps {
-    institutions: Institution[];
-}
-
-const InstitutionsPage: React.FC<InstitutionsPageProps> = ({ institutions }) => {
+const InstitutionsPage = ({ institutions }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filters, setFilters] = useState({
         type: '',
@@ -14,7 +10,7 @@ const InstitutionsPage: React.FC<InstitutionsPageProps> = ({ institutions }) => 
         state: '',
     });
 
-    const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+    const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilters(prev => ({ ...prev, [name]: value }));
     };
@@ -52,11 +48,13 @@ const InstitutionsPage: React.FC<InstitutionsPageProps> = ({ institutions }) => 
                     />
                     <select name="type" value={filters.type} onChange={handleFilterChange} className="w-full px-4 py-2 rounded-lg border-gray-300 focus:border-brand-gold focus:ring focus:ring-brand-gold focus:ring-opacity-50">
                         <option value="">All Types</option>
-                        {uniqueTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                        {/* FIX: Add explicit string type to map parameter to resolve type inference error. */}
+                        {uniqueTypes.map((t: string) => <option key={t} value={t}>{t}</option>)}
                     </select>
                     <select name="country" value={filters.country} onChange={handleFilterChange} className="w-full px-4 py-2 rounded-lg border-gray-300 focus:border-brand-gold focus:ring focus:ring-brand-gold focus:ring-opacity-50">
                         <option value="">All Countries</option>
-                        {uniqueCountries.map(c => <option key={c} value={c}>{c}</option>)}
+                        {/* FIX: Add explicit string type to map parameter to resolve type inference error. */}
+                        {uniqueCountries.map((c: string) => <option key={c} value={c}>{c}</option>)}
                     </select>
                     <input
                         type="text"
