@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CourseLevel } from '../../types';
@@ -36,14 +35,21 @@ const AdminCourseForm = ({ institutions, courses, onAddCourse, onUpdateCourse })
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (isEditMode) {
-            onUpdateCourse?.(course);
-            alert('Course updated successfully!');
-        } else {
-            onAddCourse?.(course);
-            alert('Course added successfully!');
+        
+        const confirmationMessage = isEditMode
+            ? 'Are you sure you want to save these changes?'
+            : 'Are you sure you want to add this new course?';
+
+        if (window.confirm(confirmationMessage)) {
+            if (isEditMode) {
+                onUpdateCourse?.(course);
+                alert('Course updated successfully!');
+            } else {
+                onAddCourse?.(course);
+                alert('Course added successfully!');
+            }
+            navigate('/admin/dashboard/courses');
         }
-        navigate('/admin/dashboard/courses');
     };
 
     return (

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
@@ -21,7 +20,11 @@ import AdminCourseForm from './pages/admin/AdminCourseForm';
 import AdminViewEnquiries from './pages/admin/AdminViewEnquiries';
 import AdminManageArticles from './pages/admin/AdminManageArticles';
 import AdminArticleForm from './pages/admin/AdminArticleForm';
-import { institutions as institutionsData, courses as coursesData, enquiries as enquiriesData, articles as articlesData } from './data/mockData';
+import AdminSiteSettings from './pages/admin/AdminSiteSettings';
+import AdminAccountSettings from './pages/admin/AdminAccountSettings';
+import AdminManageConfirmations from './pages/admin/AdminManageConfirmations';
+import AdminConfirmationForm from './pages/admin/AdminConfirmationForm';
+import { institutions as institutionsData, courses as coursesData, enquiries as enquiriesData, articles as articlesData, siteSettings as siteSettingsData, adminCredentials as adminCredentialsData, sessions as sessionsData, confirmations as confirmationsData } from './data/mockData';
 import { EnquiryStatus } from './types';
 
 
@@ -31,6 +34,11 @@ const App = () => {
     const [courses, setCourses] = useState(coursesData);
     const [enquiries, setEnquiries] = useState(enquiriesData);
     const [articles, setArticles] = useState(articlesData);
+    const [siteSettings, setSiteSettings] = useState(siteSettingsData);
+    const [adminCredentials, setAdminCredentials] = useState(adminCredentialsData);
+    const [sessions, setSessions] = useState(sessionsData);
+    const [confirmations, setConfirmations] = useState(confirmationsData);
+
 
     const handleLogin = () => {
         setIsAuthenticated(true);
@@ -101,10 +109,44 @@ const App = () => {
         setArticles(prev => prev.filter(a => a.id !== articleId));
     };
 
+    // Site Settings Handler
+    const handleUpdateSiteSettings = (newSettings) => {
+        setSiteSettings(newSettings);
+    };
+
+    // Admin Credentials Handler
+    const handleUpdateAdminCredentials = (newCredentials) => {
+        setAdminCredentials(newCredentials);
+    };
+
+    // Session Handler
+    const handleAddSession = (newSessionYear) => {
+        if (sessions.some(s => s.year === newSessionYear)) {
+            alert('This session already exists.');
+            return;
+        }
+        const newSession = { id: Date.now(), year: newSessionYear };
+        setSessions(prev => [...prev, newSession].sort((a,b) => a.year.localeCompare(b.year)));
+        alert(`Session ${newSessionYear} added successfully.`);
+    };
+    
+    // Confirmation Handlers
+    const handleAddConfirmation = (newConfirmation) => {
+        setConfirmations(prev => [...prev, { ...newConfirmation, id: Date.now() }]);
+    };
+
+    const handleUpdateConfirmation = (updatedConfirmation) => {
+        setConfirmations(prev => prev.map(c => c.id === updatedConfirmation.id ? updatedConfirmation : c));
+    };
+
+    const handleDeleteConfirmation = (confirmationId) => {
+        setConfirmations(prev => prev.filter(c => c.id !== confirmationId));
+    };
+
 
     const MainLayout = () => (
         <div className="flex flex-col min-h-screen">
-            <Header />
+            <Header logoUrl={siteSettings.logoUrl} />
             <main className="flex-grow">
                 <Routes>
                     <Route path="/" element={<HomePage institutions={institutions} courses={courses} articles={articles} onAddEnquiry={handleAddEnquiry} />} />
@@ -112,13 +154,13 @@ const App = () => {
                     <Route path="/institutions/:id" element={<InstitutionDetailPage institutions={institutions} courses={courses} />} />
                     <Route path="/courses" element={<CoursesPage institutions={institutions} courses={courses} />} />
                     <Route path="/courses/:courseId" element={<CourseDetailPage courses={courses} institutions={institutions} />} />
-                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/contact" element={<ContactPage siteSettings={siteSettings} />} />
                     <Route path="/blog" element={<BlogPage articles={articles} />} />
                     <Route path="/blog/:articleId" element={<ArticleDetailPage articles={articles} />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </main>
-            <Footer />
+            <Footer siteSettings={siteSettings} />
         </div>
     );
     
@@ -130,7 +172,7 @@ const App = () => {
         <HashRouter>
             <Routes>
                 {/* Admin Routes (no Header/Footer) */}
-                <Route path="/admin/login" element={<AdminLoginPage onLogin={handleLogin} />} />
+                <Route path="/admin/login" element={<AdminLoginPage onLogin={handleLogin} adminCredentials={adminCredentials} />} />
                 
                 <Route 
                     path="/admin/dashboard" 
@@ -142,18 +184,20 @@ const App = () => {
                 >
                     <Route index element={<AdminDashboardHome institutions={institutions} courses={courses} enquiries={enquiries} articles={articles} />} />
                     <Route path="institutions" element={<AdminManageInstitutions institutions={institutions} onDeleteInstitution={handleDeleteInstitution} />} />
-                    {/* FIX: Pass all required props to AdminInstitutionForm for both add and edit routes to resolve TypeScript errors. */}
                     <Route path="institutions/add" element={<AdminInstitutionForm institutions={institutions} onAddInstitution={handleAddInstitution} onUpdateInstitution={handleUpdateInstitution} />} />
                     <Route path="institutions/edit/:institutionId" element={<AdminInstitutionForm institutions={institutions} onAddInstitution={handleAddInstitution} onUpdateInstitution={handleUpdateInstitution} />} />
                     <Route path="courses" element={<AdminManageCourses courses={courses} institutions={institutions} onDeleteCourse={handleDeleteCourse} />} />
-                    {/* FIX: Pass all required props to AdminCourseForm for both add and edit routes to resolve TypeScript errors. */}
                     <Route path="courses/add" element={<AdminCourseForm institutions={institutions} courses={courses} onAddCourse={handleAddCourse} onUpdateCourse={handleUpdateCourse} />} />
                     <Route path="courses/edit/:courseId" element={<AdminCourseForm institutions={institutions} courses={courses} onAddCourse={handleAddCourse} onUpdateCourse={handleUpdateCourse} />} />
                     <Route path="enquiries" element={<AdminViewEnquiries enquiries={enquiries} onUpdateStatus={handleUpdateEnquiryStatus} />} />
                     <Route path="articles" element={<AdminManageArticles articles={articles} onDeleteArticle={handleDeleteArticle} />} />
-                    {/* FIX: Pass all required props to AdminArticleForm for both add and edit routes to resolve TypeScript errors. */}
                     <Route path="articles/add" element={<AdminArticleForm articles={articles} onAddArticle={handleAddArticle} onUpdateArticle={handleUpdateArticle} />} />
                     <Route path="articles/edit/:articleId" element={<AdminArticleForm articles={articles} onAddArticle={handleAddArticle} onUpdateArticle={handleUpdateArticle} />} />
+                    <Route path="confirmations" element={<AdminManageConfirmations sessions={sessions} confirmations={confirmations} institutions={institutions} onAddSession={handleAddSession} onDeleteConfirmation={handleDeleteConfirmation} />} />
+                    <Route path="confirmations/add" element={<AdminConfirmationForm sessions={sessions} institutions={institutions} confirmations={confirmations} onAddConfirmation={handleAddConfirmation} onUpdateConfirmation={handleUpdateConfirmation} />} />
+                    <Route path="confirmations/edit/:confirmationId" element={<AdminConfirmationForm sessions={sessions} institutions={institutions} confirmations={confirmations} onAddConfirmation={handleAddConfirmation} onUpdateConfirmation={handleUpdateConfirmation} />} />
+                    <Route path="settings" element={<AdminSiteSettings siteSettings={siteSettings} onUpdateSettings={handleUpdateSiteSettings} />} />
+                    <Route path="account" element={<AdminAccountSettings adminCredentials={adminCredentials} onUpdateCredentials={handleUpdateAdminCredentials} />} />
                 </Route>
 
                 {/* Redirect base /admin to dashboard */}

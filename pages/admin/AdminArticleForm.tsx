@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -32,14 +31,21 @@ const AdminArticleForm = ({ articles, onAddArticle, onUpdateArticle }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (isEditMode) {
-            onUpdateArticle?.(article);
-            alert('Article updated successfully!');
-        } else {
-            onAddArticle?.(article);
-            alert('Article added successfully!');
+
+        const confirmationMessage = isEditMode
+            ? 'Are you sure you want to save these changes?'
+            : 'Are you sure you want to add this new article?';
+
+        if (window.confirm(confirmationMessage)) {
+            if (isEditMode) {
+                onUpdateArticle?.(article);
+                alert('Article updated successfully!');
+            } else {
+                onAddArticle?.(article);
+                alert('Article added successfully!');
+            }
+            navigate('/admin/dashboard/articles');
         }
-        navigate('/admin/dashboard/articles');
     };
 
     return (

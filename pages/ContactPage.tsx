@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 
-const ContactPage = () => {
+const ContactPage = ({ siteSettings }) => {
     const [submitted, setSubmitted] = useState(false);
 
     const handleSubmit = (e) => {
@@ -22,15 +21,15 @@ const ContactPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="bg-gray-50 p-6 rounded-lg text-center">
                             <h3 className="text-xl font-bold text-brand-blue">Address</h3>
-                            <p className="text-gray-600 mt-2">Rakesh Sharma Building, Knowledge Park-3, Greater Noida, UP-201310</p>
+                            <p className="text-gray-600 mt-2">{siteSettings.address}</p>
                         </div>
                         <div className="bg-gray-50 p-6 rounded-lg text-center">
                             <h3 className="text-xl font-bold text-brand-blue">Email</h3>
-                            <p className="text-gray-600 mt-2">myadmissionmaster@outlook.com</p>
+                            <p className="text-gray-600 mt-2">{siteSettings.email}</p>
                         </div>
                         <div className="bg-gray-50 p-6 rounded-lg text-center">
                             <h3 className="text-xl font-bold text-brand-blue">Phone</h3>
-                            <p className="text-gray-600 mt-2">+91-9318479200</p>
+                            <p className="text-gray-600 mt-2">{siteSettings.phone}</p>
                         </div>
                     </div>
 

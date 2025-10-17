@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-const AdminLoginPage = ({ onLogin }) => {
+const AdminLoginPage = ({ onLogin, adminCredentials }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -12,8 +11,7 @@ const AdminLoginPage = ({ onLogin }) => {
         e.preventDefault();
         setError('');
 
-        // Dummy credentials
-        if (username === 'admin' && password === 'admin123') {
+        if (username === adminCredentials.username && password === adminCredentials.password) {
             onLogin();
             navigate('/admin/dashboard', { replace: true });
         } else {
@@ -72,6 +70,11 @@ const AdminLoginPage = ({ onLogin }) => {
                         </button>
                     </div>
                 </form>
+                <div className="text-center mt-4">
+                    <Link to="/" className="font-medium text-brand-blue hover:text-brand-gold">
+                        &larr; Back to Main Website
+                    </Link>
+                </div>
             </div>
         </div>
     );

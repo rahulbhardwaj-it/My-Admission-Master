@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 
@@ -45,6 +44,9 @@ const AdminDashboardPage = ({ onLogout }) => {
                         <NavLink to="/admin/dashboard/courses" className={getNavLinkClass} onClick={() => setIsSidebarOpen(false)}>Manage Courses</NavLink>
                         <NavLink to="/admin/dashboard/articles" className={getNavLinkClass} onClick={() => setIsSidebarOpen(false)}>Manage Articles</NavLink>
                         <NavLink to="/admin/dashboard/enquiries" className={getNavLinkClass} onClick={() => setIsSidebarOpen(false)}>View Enquiries</NavLink>
+                        <NavLink to="/admin/dashboard/confirmations" className={getNavLinkClass} onClick={() => setIsSidebarOpen(false)}>Student Confirmations</NavLink>
+                        <NavLink to="/admin/dashboard/settings" className={getNavLinkClass} onClick={() => setIsSidebarOpen(false)}>Site Settings</NavLink>
+                        <NavLink to="/admin/dashboard/account" className={getNavLinkClass} onClick={() => setIsSidebarOpen(false)}>Account Settings</NavLink>
                     </nav>
                 </div>
                  <button

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -10,17 +9,17 @@ const SocialIcon = ({ href, path }) => (
     </a>
 );
 
-const Footer = () => {
+const Footer = ({ siteSettings }) => {
     return (
         <footer className="bg-brand-blue text-white">
             <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div className="space-y-8 xl:col-span-1">
                          <div className="flex items-center space-x-2">
-                            <img className="h-14 w-14" src="https://i.ibb.co/ZJ9yDq7/logo.png" alt="My Admission Master Logo" />
+                            <img className="h-14 w-14" src={siteSettings.logoUrl} alt="My Admission Master Logo" />
                              <div>
                                 <h3 className="text-xl font-bold">MY ADMISSION MASTER</h3>
-                                <p className="text-gray-400 text-sm italic">"ADMISSION KE SAATH BHI - ADMISSION KE BAAD BHI"</p>
+                                <p className="text-gray-400 text-sm italic">{siteSettings.tagline}</p>
                              </div>
                         </div>
                         <p className="text-gray-400 text-base">
@@ -49,9 +48,9 @@ const Footer = () => {
                             <div>
                                 <h3 className="text-sm font-semibold text-gray-200 tracking-wider uppercase">Connect With Us</h3>
                                 <div className="mt-4 space-y-4 text-gray-400">
-                                    <p>Address: Rakesh Sharma Building, Knowledge Park-3, Greater Noida, UP-201310</p>
-                                    <p>Email: myadmissionmaster@outlook.com</p>
-                                    <p>Phone: +91-9318479200</p>
+                                    <p>Address: {siteSettings.address}</p>
+                                    <p>Email: {siteSettings.email}</p>
+                                    <p>Phone: {siteSettings.phone}</p>
                                 </div>
                             </div>
                         </div>

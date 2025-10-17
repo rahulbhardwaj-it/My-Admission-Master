@@ -1,5 +1,17 @@
+import { CourseLevel, EnquiryStatus, ConfirmationStatus } from '../types';
 
-import { CourseLevel, EnquiryStatus } from '../types';
+export const siteSettings = {
+    logoUrl: 'https://i.ibb.co/ZJ9yDq7/logo.png',
+    address: 'Rakesh Sharma Building, Knowledge Park-3, Greater Noida, UP-201310',
+    email: 'myadmissionmaster@outlook.com',
+    phone: '+91-9318479200',
+    tagline: '"ADMISSION KE SAATH BHI - ADMISSION KE BAAD BHI"'
+};
+
+export const adminCredentials = {
+    username: 'admin',
+    password: 'admin123'
+};
 
 export const institutions = [
     {
@@ -222,4 +234,42 @@ export const articles = [
         summary: 'Studying abroad can be a life-changing experience, offering cultural immersion and a global perspective. We weigh the pros and cons to help you decide if it fits your academic goals.',
         content: 'Studying abroad offers numerous benefits, including cultural enrichment, language skills, and a global network. However, it also comes with challenges like cost, being away from home, and adapting to a new educational system. Carefully research programs, consider your budget, and talk to students who have studied abroad to make an informed decision.'
     }
+];
+
+export const sessions = [
+    { id: 1, year: '2025-26' },
+    { id: 2, year: '2026-27' }
+];
+
+export const confirmations = [
+    {
+        id: 1,
+        sessionId: 1, // 2025-26
+        studentName: 'Priya Sharma',
+        contact: '9876543210',
+        course: 'B.Tech in Computer Science',
+        institutionId: 1, // Global Tech University
+        consultantName: 'Mr. Gupta',
+        status: ConfirmationStatus.CONFIRMED,
+    },
+    {
+        id: 2,
+        sessionId: 1, // 2025-26
+        studentName: 'Rohan Verma',
+        contact: 'rohan.v@example.com',
+        course: 'Master of Business Administration (MBA)',
+        institutionId: 3, // Heritage Business School
+        consultantName: 'Ms. Davis',
+        status: ConfirmationStatus.IN_PROGRESS,
+    },
+    {
+        id: 3,
+        sessionId: 2, // 2026-27
+        studentName: 'Anjali Mehta',
+        contact: '9123456789',
+        course: 'Doctor of Medicine (MD)',
+        institutionId: 4, // Greenfield Medical Institute
+        consultantName: 'Mr. Gupta',
+        status: ConfirmationStatus.CONFIRMED,
+    },
 ];

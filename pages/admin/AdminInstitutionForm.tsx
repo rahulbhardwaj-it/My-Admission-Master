@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -39,14 +38,21 @@ const AdminInstitutionForm = ({ institutions, onAddInstitution, onUpdateInstitut
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (isEditMode) {
-            onUpdateInstitution?.(institution);
-            alert('Institution updated successfully!');
-        } else {
-            onAddInstitution?.(institution);
-            alert('Institution added successfully!');
+        
+        const confirmationMessage = isEditMode
+            ? 'Are you sure you want to save these changes?'
+            : 'Are you sure you want to add this new institution?';
+            
+        if (window.confirm(confirmationMessage)) {
+            if (isEditMode) {
+                onUpdateInstitution?.(institution);
+                alert('Institution updated successfully!');
+            } else {
+                onAddInstitution?.(institution);
+                alert('Institution added successfully!');
+            }
+            navigate('/admin/dashboard/institutions');
         }
-        navigate('/admin/dashboard/institutions');
     };
 
     return (

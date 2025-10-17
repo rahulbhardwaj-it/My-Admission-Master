@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ logoUrl }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
@@ -36,8 +35,8 @@ const Header = () => {
                 <div className="flex items-center justify-between h-20">
                     <div className="flex-shrink-0">
                         <NavLink to="/" className="flex items-center space-x-2">
-                            <img className="h-14 w-14" src="https://i.ibb.co/ZJ9yDq7/logo.png" alt="My Admission Master Logo" />
-                            <span className="text-white font-bold text-xl hidden md:block">MY ADMISSION MASTER</span>
+                            <img className="h-14 w-14" src={logoUrl} alt="My Admission Master Logo" />
+                            <span className="text-white font-bold text-lg md:text-xl">MY ADMISSION MASTER</span>
                         </NavLink>
                     </div>
                     <div className="hidden md:block">
@@ -72,7 +71,6 @@ const Header = () => {
             </div>
 
             {/* Mobile menu, full-screen overlay */}
-            {/* FIX: Increased z-index from 40 to 50 to ensure the mobile menu appears above other content. */}
             <div className={`md:hidden fixed top-20 left-0 right-0 bottom-0 bg-brand-blue z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} id="mobile-menu">
                 <div className="px-2 pt-2 pb-3 space-y-2 sm:px-3">
                     <NavLink to="/" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Home</NavLink>
