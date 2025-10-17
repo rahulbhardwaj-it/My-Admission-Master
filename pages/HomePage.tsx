@@ -46,7 +46,7 @@ const HomePage = ({ institutions, courses, articles, onAddEnquiry }) => {
             <section className="relative bg-brand-blue text-white h-[60vh] flex items-center justify-center">
                 <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{backgroundImage: "url('https://picsum.photos/seed/banner/1920/1080')"}}></div>
                 <div className="relative z-10 text-center p-4">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Admission Open for 2025-26 Session!</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Admission Open for 2026-27 Session!</h1>
                     <p className="text-xl md:text-2xl mb-8 drop-shadow-md">Your future starts Now. Explore top Institutions and apply now.</p>
                     <Link to="/institutions" className="bg-brand-gold text-brand-blue font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-300 transition duration-300 transform hover:scale-105">
                         Explore Institutions
