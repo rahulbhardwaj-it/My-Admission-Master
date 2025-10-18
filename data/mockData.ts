@@ -1,10 +1,10 @@
 import { CourseLevel, EnquiryStatus, ConfirmationStatus } from '../types';
 
 export const siteSettings = {
-    logoUrl: 'https://ibb.co/1tVg2ZQG',
+    logoUrl: 'https://i.ibb.co/Q3Bgm9Qv/admission-master.jpg',
     address: 'Rakesh Sharma Building, Knowledge Park-3, Greater Noida, UP-201310',
     email: 'myadmissionmaster@outlook.com',
-    phone: '+91-9318479200',
+    phone: '+91-9318479200 +91-9220978596',
     tagline: '"ADMISSION KE SAATH BHI - ADMISSION KE BAAD BHI"',
     featuredInstitutionIds: [1, 3, 4], // IDs of institutions to feature
 };
@@ -17,19 +17,19 @@ export const adminCredentials = {
 export const institutions = [
     {
         id: 1,
-        name: 'Global Tech University',
-        type: 'University',
-        establishmentYear: 1995,
-        affiliatedFrom: 'National Board of Technology',
-        country: 'USA',
-        state: 'California',
-        district: 'Silicon Valley',
-        admissionMode: 'Online Test, Interview',
+        name: 'Mangalmay Group Of Institutions',
+        type: 'College',
+        establishmentYear: 2002,
+        affiliatedFrom: 'AKTU, CCSU',
+        country: 'India',
+        state: 'Uttar Pradesh ',
+        district: 'Gautam Buddha Nagar',
+        admissionMode: 'UPTAC, Direct',
         about: 'A leading university for technology and innovation, located in the heart of Silicon Valley. We focus on practical, hands-on learning.',
-        placement: '95% placement rate with top tech companies like Google, Apple, and Microsoft. Average package of $120,000.',
-        photoUrl: 'https://picsum.photos/seed/gtu/800/600',
-        registrationUrl: '#',
-        logoUrl: 'https://i.ibb.co/ZJ9yDq7/logo.png',
+        placement: 'Mangalmay Group of Institutions is one of the premier NAAC accredited Institution with a prime focus on Innovation, Excellence and Nurturing global leaders for a sustainable future. We incorporate Knowledge, Industry experience, Research, and International exposure in our curriculum, to offer comprehensive educational program to the students. The post graduate and graduate programmes offered at Mangalmay are affiliated to AKTU, Lucknow (formally known as U.P.Technical University) and approved by the All India Council for Technical Education (AICTE) Ministry of HRD, New Delhi. Institute is also affiliated to C.C.S University Meerut, vision is to disseminate knowledge in the field of Management, Engineering, Bio-Technology, Commerce and Education. Driven by creativity and curiosity, Mangalmay strive to provide an educationally outstanding experience for students. Mangalmay has been ranked among the best MBA and B.Tech college in Delhi NCR..',
+        photoUrl: 'https://theacademicinsights.com/wp-content/uploads/2023/03/Mangalmay-Institute.jpg',
+        registrationUrl: 'https://admissions.mangalmay.org/',
+        logoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcup7mgmM91u8G-MCL68CKniAOx1gErqhSFaD6qlIJ6hUAA0VbPflzA3yAME0LW7b1i8o&usqp=CAU',
     },
     {
         id: 2,

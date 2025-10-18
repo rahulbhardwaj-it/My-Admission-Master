@@ -29,8 +29,8 @@ const AdminDashboardPage = ({ onLogout }) => {
                 <div>
                     <div className="flex items-center justify-between p-2 mb-6 border-b border-white/20 pb-4">
                         <div className="flex items-center space-x-2">
-                             <img className="h-12 w-12" src="https://i.ibb.co/ZJ9yDq7/logo.png" alt="Logo" />
-                             <span className="text-white font-bold text-lg">Admin Panel</span>
+                             <img className="h-12 w-12" src="https://i.ibb.co/Q3Bgm9Qv/admission-master.jpg" alt="Logo" />
+                             <span className="text-white font-bold text-lg">Admin Master</span>
                         </div>
                         <button className="md:hidden text-white p-1 rounded-full hover:bg-white/20 transition-colors" onClick={() => setIsSidebarOpen(false)} aria-label="Close sidebar">
                             <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

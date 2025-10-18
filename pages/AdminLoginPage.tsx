@@ -23,7 +23,7 @@ const AdminLoginPage = ({ onLogin, adminCredentials }) => {
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
                 <div className="text-center">
-                    <img className="mx-auto h-20 w-auto" src="https://i.ibb.co/ZJ9yDq7/logo.png" alt="My Admission Master Logo" />
+                    <img className="mx-auto h-20 w-auto" src="https://i.ibb.co/Q3Bgm9Qv/admission-master.jpg" alt="My Admission Master Logo" />
                     <h2 className="mt-6 text-3xl font-extrabold text-brand-blue">Admin Panel Login</h2>
                     <p className="mt-2 text-sm text-gray-600">
                         Sign in to manage institutions and courses
