@@ -149,7 +149,7 @@ const App = () => {
             <Header logoUrl={siteSettings.logoUrl} />
             <main className="flex-grow">
                 <Routes>
-                    <Route path="/" element={<HomePage institutions={institutions} courses={courses} articles={articles} onAddEnquiry={handleAddEnquiry} />} />
+                    <Route path="/" element={<HomePage institutions={institutions} courses={courses} articles={articles} onAddEnquiry={handleAddEnquiry} siteSettings={siteSettings} />} />
                     <Route path="/institutions" element={<InstitutionsPage institutions={institutions} />} />
                     <Route path="/institutions/:id" element={<InstitutionDetailPage institutions={institutions} courses={courses} />} />
                     <Route path="/courses" element={<CoursesPage institutions={institutions} courses={courses} />} />
@@ -196,7 +196,7 @@ const App = () => {
                     <Route path="confirmations" element={<AdminManageConfirmations sessions={sessions} confirmations={confirmations} institutions={institutions} onAddSession={handleAddSession} onDeleteConfirmation={handleDeleteConfirmation} />} />
                     <Route path="confirmations/add" element={<AdminConfirmationForm sessions={sessions} institutions={institutions} confirmations={confirmations} onAddConfirmation={handleAddConfirmation} onUpdateConfirmation={handleUpdateConfirmation} />} />
                     <Route path="confirmations/edit/:confirmationId" element={<AdminConfirmationForm sessions={sessions} institutions={institutions} confirmations={confirmations} onAddConfirmation={handleAddConfirmation} onUpdateConfirmation={handleUpdateConfirmation} />} />
-                    <Route path="settings" element={<AdminSiteSettings siteSettings={siteSettings} onUpdateSettings={handleUpdateSiteSettings} />} />
+                    <Route path="settings" element={<AdminSiteSettings siteSettings={siteSettings} onUpdateSettings={handleUpdateSiteSettings} institutions={institutions} />} />
                     <Route path="account" element={<AdminAccountSettings adminCredentials={adminCredentials} onUpdateCredentials={handleUpdateAdminCredentials} />} />
                 </Route>
 

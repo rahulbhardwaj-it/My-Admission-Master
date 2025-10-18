@@ -1,11 +1,12 @@
 import { CourseLevel, EnquiryStatus, ConfirmationStatus } from '../types';
 
 export const siteSettings = {
-    logoUrl: 'https://github.com/rahulbhardwaj-it/My-Admission-Master/blob/main/admission%20master.jpeg',
+    logoUrl: 'https://ibb.co/1tVg2ZQG',
     address: 'Rakesh Sharma Building, Knowledge Park-3, Greater Noida, UP-201310',
     email: 'myadmissionmaster@outlook.com',
     phone: '+91-9318479200',
-    tagline: '"ADMISSION KE SAATH BHI - ADMISSION KE BAAD BHI"'
+    tagline: '"ADMISSION KE SAATH BHI - ADMISSION KE BAAD BHI"',
+    featuredInstitutionIds: [1, 3, 4], // IDs of institutions to feature
 };
 
 export const adminCredentials = {

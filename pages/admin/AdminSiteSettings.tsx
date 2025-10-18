@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const AdminSiteSettings = ({ siteSettings, onUpdateSettings }) => {
+const AdminSiteSettings = ({ siteSettings, onUpdateSettings, institutions }) => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState(siteSettings);
+    const [formData, setFormData] = useState({ ...siteSettings, featuredInstitutionIds: siteSettings.featuredInstitutionIds || [] });
 
     useEffect(() => {
-        setFormData(siteSettings);
+        setFormData({ ...siteSettings, featuredInstitutionIds: siteSettings.featuredInstitutionIds || [] });
     }, [siteSettings]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleFeaturedChange = (institutionId) => {
+        const currentIds = formData.featuredInstitutionIds;
+        const newIds = currentIds.includes(institutionId)
+            ? currentIds.filter(id => id !== institutionId)
+            : [...currentIds, institutionId];
+        
+        setFormData(prev => ({...prev, featuredInstitutionIds: newIds}));
     };
 
     const handleSubmit = (e) => {
@@ -50,6 +59,29 @@ const AdminSiteSettings = ({ siteSettings, onUpdateSettings }) => {
                     <label htmlFor="tagline" className="block text-sm font-medium text-gray-700">Tagline</label>
                     <input type="text" name="tagline" id="tagline" value={formData.tagline} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-gold focus:border-brand-gold"/>
                 </div>
+
+                <hr/>
+                
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Featured Institutions</label>
+                    <p className="text-xs text-gray-500 mb-4">Select institutions to feature on the homepage.</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-h-60 overflow-y-auto p-4 border rounded-md">
+                        {institutions.map(inst => (
+                            <div key={inst.id} className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    id={`featured-${inst.id}`}
+                                    checked={formData.featuredInstitutionIds.includes(inst.id)}
+                                    onChange={() => handleFeaturedChange(inst.id)}
+                                    className="h-4 w-4 text-brand-blue border-gray-300 rounded focus:ring-brand-gold"
+                                />
+                                <label htmlFor={`featured-${inst.id}`} className="ml-3 text-sm text-gray-700">{inst.name}</label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+
                 <div className="flex justify-end space-x-4 pt-4">
                     <button type="button" onClick={() => navigate('/admin/dashboard')} className="bg-gray-200 text-gray-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors">
                         Cancel

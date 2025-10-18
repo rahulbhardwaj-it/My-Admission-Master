@@ -2,9 +2,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const InstitutionCard = ({ institution }) => {
+const InstitutionCard = ({ institution, isFeatured = false }) => {
+    const cardClasses = `bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 relative ${isFeatured ? 'border-2 border-brand-gold' : ''}`;
+
     return (
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+        <div className={cardClasses}>
+            {isFeatured && (
+                <div className="absolute top-0 left-0 bg-brand-gold text-brand-blue text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-br-lg z-10">
+                    Featured
+                </div>
+            )}
             <div className="relative">
                 <img className="h-56 w-full object-cover" src={institution.photoUrl} alt={institution.name} />
                 <div className="absolute -bottom-8 right-6">

@@ -54,24 +54,35 @@ const Header = ({ logoUrl }) => {
                         </NavLink>
                     </div>
                     <div className="-mr-2 flex md:hidden">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} type="button" className="bg-brand-blue inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded={isMenuOpen}>
+                        <button 
+                            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+                            type="button" 
+                            className="bg-brand-blue inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" 
+                            aria-controls="mobile-menu" 
+                            aria-expanded={isMenuOpen}
+                        >
                             <span className="sr-only">Open main menu</span>
-                            {!isMenuOpen ? (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            ) : (
-                                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            )}
+                             <div className="w-6 h-6">
+                                <span
+                                    aria-hidden="true"
+                                    className={`block absolute h-0.5 w-6 transform bg-current transition duration-300 ease-in-out ${ isMenuOpen ? 'rotate-45' : '-translate-y-1.5'}`}
+                                ></span>
+                                <span
+                                    aria-hidden="true"
+                                    className={`block absolute h-0.5 w-6 transform bg-current transition duration-300 ease-in-out ${ isMenuOpen ? 'opacity-0' : '' }`}
+                                ></span>
+                                <span
+                                    aria-hidden="true"
+                                    className={`block absolute h-0.5 w-6 transform bg-current transition duration-300 ease-in-out ${ isMenuOpen ? '-rotate-45' : 'translate-y-1.5' }`}
+                                ></span>
+                            </div>
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* Mobile menu, full-screen overlay */}
-            <div className={`md:hidden fixed top-20 left-0 right-0 bottom-0 bg-brand-blue z-50 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} id="mobile-menu">
+            {/* Mobile menu, dropdown */}
+            <div className={`md:hidden bg-brand-blue transition-all duration-300 ease-in-out overflow-hidden ${isMenuOpen ? 'max-h-96' : 'max-h-0'}`} id="mobile-menu">
                 <div className="px-2 pt-2 pb-3 space-y-2 sm:px-3">
                     <NavLink to="/" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Home</NavLink>
                     <NavLink to="/institutions" className={getMobileNavLinkClass} onClick={()=>setIsMenuOpen(false)}>Institutions</NavLink>
