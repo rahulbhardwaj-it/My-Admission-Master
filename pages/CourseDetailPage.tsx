@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
@@ -54,7 +53,7 @@ const CourseDetailPage = ({ courses, institutions }) => {
                              <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
                                 <InfoPill label="Duration" value={course.duration} />
                                 <InfoPill label="Total Seats" value={course.totalSeats} />
-                                <InfoPill label="Annual Fees" value={`$${course.annualFees.toLocaleString()}`} />
+                                <InfoPill label="Annual Fees" value={`${course.currency} ${course.annualFees.toLocaleString()}`} />
                              </div>
                              <a href={course.registrationUrl} target="_blank" rel="noopener noreferrer" className="mt-6 w-full text-center block bg-brand-gold text-brand-blue font-bold py-3 px-4 rounded-lg hover:bg-yellow-300 transition duration-300 transform hover:scale-105">
                                 Register Now

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import EnquiryForm from '../components/EnquiryForm';
@@ -50,8 +49,8 @@ const HomePage = ({ institutions, courses, articles, onAddEnquiry, siteSettings 
             <section className="relative bg-brand-blue text-white h-[60vh] flex items-center justify-center">
                 <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{backgroundImage: "url('https://picsum.photos/seed/banner/1920/1080')"}}></div>
                 <div className="relative z-10 text-center p-4">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Admission Open for 2026-27 Session!</h1>
-                    <p className="text-xl md:text-2xl mb-8 drop-shadow-md">Your future starts Now. Explore top Institutions and apply now.</p>
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Admission Open for 2026-27 Session!</h1>
+                    <p className="text-lg sm:text-xl md:text-2xl mb-8 drop-shadow-md">Your future starts Now. Explore top Institutions and apply now.</p>
                     <Link to="/institutions" className="bg-brand-gold text-brand-blue font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-300 transition duration-300 transform hover:scale-105">
                         Explore Institutions
                     </Link>
@@ -61,7 +60,7 @@ const HomePage = ({ institutions, courses, articles, onAddEnquiry, siteSettings 
             {/* Search & Enquiry Section */}
             <section className="py-16 bg-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                         {/* Left Column: Search */}
                         <div className="space-y-6">
                             <h2 className="text-3xl font-bold text-brand-blue text-center lg:text-left">"Discover Your Dream Institutions, search from Thousands of University Worldwide"</h2>

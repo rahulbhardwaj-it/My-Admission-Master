@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CourseLevel } from '../../types';
@@ -52,12 +51,12 @@ const AdminManageCourses = ({ courses, institutions, onDeleteCourse }) => {
     };
 
     return (
-        <div className="bg-white p-8 rounded-lg shadow-md">
-            <div className="flex justify-between items-center mb-6">
+        <div className="bg-white p-4 sm:p-8 rounded-lg shadow-md">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
                 <h2 className="text-2xl font-semibold text-gray-800">Manage Courses</h2>
                 <Link
                     to="/admin/dashboard/courses/add"
-                    className="bg-brand-blue text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 transition-colors"
+                    className="bg-brand-blue text-white text-center font-bold py-2 px-4 rounded-lg hover:bg-blue-800 transition-colors"
                 >
                     + Add New Course
                 </Link>
@@ -82,15 +81,15 @@ const AdminManageCourses = ({ courses, institutions, onDeleteCourse }) => {
                 </select>
             </div>
 
-            {/* Courses Table */}
-            <div className="overflow-x-auto">
+            {/* Desktop Courses Table */}
+            <div className="overflow-x-auto hidden md:block">
                 <table className="min-w-full bg-white">
                     <thead className="bg-gray-100">
                         <tr>
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Course Name</th>
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Institution</th>
                             <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Level</th>
-                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Duration</th>
+                            <th className="text-left py-3 px-4 uppercase font-semibold text-sm">Annual Fees</th>
                             <th className="text-center py-3 px-4 uppercase font-semibold text-sm">Actions</th>
                         </tr>
                     </thead>
@@ -100,7 +99,7 @@ const AdminManageCourses = ({ courses, institutions, onDeleteCourse }) => {
                                 <td className="text-left py-3 px-4">{course.name}</td>
                                 <td className="text-left py-3 px-4">{course.institutionName}</td>
                                 <td className="text-left py-3 px-4">{course.level}</td>
-                                <td className="text-left py-3 px-4">{course.duration}</td>
+                                <td className="text-left py-3 px-4">{course.currency} {course.annualFees.toLocaleString()}</td>
                                 <td className="text-center py-3 px-4 space-x-2">
                                     <Link to={`/admin/dashboard/courses/edit/${course.id}`} className="text-sm bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded-full">
                                         Edit
@@ -119,6 +118,32 @@ const AdminManageCourses = ({ courses, institutions, onDeleteCourse }) => {
                         )}
                     </tbody>
                 </table>
+            </div>
+
+             {/* Mobile Card View */}
+            <div className="block md:hidden space-y-4">
+                 {paginatedCourses.length > 0 ? paginatedCourses.map(course => (
+                    <div key={course.id} className="bg-gray-50 p-4 rounded-lg shadow space-y-3">
+                        <div className="font-bold text-lg text-brand-blue">{course.name}</div>
+                        <div className="text-sm text-gray-600">
+                            <p><span className="font-semibold">Institution:</span> {course.institutionName}</p>
+                            <p><span className="font-semibold">Level:</span> {course.level}</p>
+                            <p><span className="font-semibold">Fees:</span> {course.currency} {course.annualFees.toLocaleString()}/year</p>
+                        </div>
+                        <div className="flex justify-end space-x-2 pt-2 border-t border-gray-200">
+                            <Link to={`/admin/dashboard/courses/edit/${course.id}`} className="text-sm bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded-full">
+                                Edit
+                            </Link>
+                            <button onClick={() => handleDeleteClick(course.id)} className="text-sm bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-full">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                )) : (
+                    <div className="text-center py-10 text-gray-500">
+                        No courses found matching your criteria.
+                    </div>
+                )}
             </div>
 
             {/* Pagination Controls */}

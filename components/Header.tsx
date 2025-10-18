@@ -32,11 +32,11 @@ const Header = ({ logoUrl }) => {
     return (
         <header className="bg-brand-blue shadow-lg sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-20">
+                <div className="flex items-center justify-between h-16 sm:h-20">
                     <div className="flex-shrink-0">
                         <NavLink to="/" className="flex items-center space-x-2">
-                            <img className="h-14 w-14" src={logoUrl} alt="My Admission Master Logo" />
-                            <span className="text-white font-bold text-lg md:text-xl">MY ADMISSION MASTER</span>
+                            <img className="h-12 w-12 sm:h-14 sm:w-14" src={logoUrl} alt="My Admission Master Logo" />
+                            <span className="text-white font-bold text-base sm:text-lg md:text-xl">MY ADMISSION MASTER</span>
                         </NavLink>
                     </div>
                     <div className="hidden md:block">

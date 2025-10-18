@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CourseLevel } from '../../types';
+import { CourseLevel, Currency } from '../../types';
 
 const AdminCourseForm = ({ institutions, courses, onAddCourse, onUpdateCourse }) => {
     const navigate = useNavigate();
@@ -13,6 +13,7 @@ const AdminCourseForm = ({ institutions, courses, onAddCourse, onUpdateCourse })
         level: CourseLevel.UG,
         duration: '',
         annualFees: 0,
+        currency: Currency.INR,
         totalSeats: 0,
         facilities: '',
         registrationUrl: '',
@@ -86,9 +87,19 @@ const AdminCourseForm = ({ institutions, courses, onAddCourse, onUpdateCourse })
                     </div>
                     {/* Column 2 */}
                     <div className="space-y-4">
-                        <div>
-                            <label htmlFor="annualFees" className="block text-sm font-medium text-gray-700">Annual Fees</label>
-                            <input type="number" name="annualFees" id="annualFees" value={course.annualFees} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-gold focus:border-brand-gold"/>
+                         <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label htmlFor="annualFees" className="block text-sm font-medium text-gray-700">Annual Fees</label>
+                                <input type="number" name="annualFees" id="annualFees" value={course.annualFees} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-brand-gold focus:border-brand-gold"/>
+                            </div>
+                            <div>
+                                <label htmlFor="currency" className="block text-sm font-medium text-gray-700">Currency</label>
+                                <select name="currency" id="currency" value={course.currency} onChange={handleChange} required className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-brand-gold focus:border-brand-gold">
+                                    {Object.values(Currency).map(curr => (
+                                        <option key={curr} value={curr}>{curr}</option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                         <div>
                             <label htmlFor="totalSeats" className="block text-sm font-medium text-gray-700">Total Seats</label>

@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CourseLevel } from '../types';
@@ -14,7 +13,7 @@ const CourseCard = ({ course }) => (
             <div className="grid grid-cols-2 gap-4 text-sm text-gray-700 mb-4">
                 <p><span className="font-semibold">Duration:</span> {course.duration}</p>
                 <p><span className="font-semibold">Seats:</span> {course.totalSeats}</p>
-                <p><span className="font-semibold">Fees:</span> ${course.annualFees.toLocaleString()}/year</p>
+                <p><span className="font-semibold">Fees:</span> {course.currency} {course.annualFees.toLocaleString()}/year</p>
             </div>
         </div>
         <div className="p-6 bg-gray-50">

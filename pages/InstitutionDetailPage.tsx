@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
@@ -58,7 +57,7 @@ const InstitutionDetailPage = ({ institutions, courses }) => {
                                     <div key={course.id} className="bg-gray-50 p-4 rounded-lg flex justify-between items-center">
                                         <div>
                                             <h4 className="font-bold text-lg text-brand-blue">{course.name}</h4>
-                                            <p className="text-sm text-gray-600">{course.level} - {course.duration} - ${course.annualFees.toLocaleString()}/year</p>
+                                            <p className="text-sm text-gray-600">{course.level} - {course.duration} - {course.currency} {course.annualFees.toLocaleString()}/year</p>
                                         </div>
                                         <Link to={`/courses/${course.id}`} className="bg-brand-gold text-brand-blue font-semibold py-2 px-4 rounded-full hover:bg-yellow-300 transition-colors">
                                             View Details

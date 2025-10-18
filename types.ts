@@ -20,3 +20,10 @@ export const ConfirmationStatus = {
     IN_PROGRESS: 'In Progress',
     CANCELLED: 'Cancelled'
 };
+
+export const Currency = {
+    INR: 'INR',
+    USD: 'USD',
+    EUR: 'EUR',
+    GBP: 'GBP'
+};
